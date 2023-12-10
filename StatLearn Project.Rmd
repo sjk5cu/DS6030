@@ -46,8 +46,13 @@ Not very balanced... That will be a challenge when trying to train a model.
 Plot of Amount vs Time
 ```{r}
 ggplot(data = data, aes(x=Time,y=Amount))+
-  geom_point()
+  geom_point()+
+  facet_grid(rows = vars(Class))
+
 ```
+
+
+
 ```{r}
 data %>% 
   group_by(Class) %>% 
@@ -79,7 +84,7 @@ train = scaled[ind, ]
 test =  scaled[!ind, ]
 ```
 
-Undersampling
+Under sampling to create a balanced training set
 ```{r}
 nrow_fraud <- nrow(train[train$Class == 1, ])
 
