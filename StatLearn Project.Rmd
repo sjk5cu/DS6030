@@ -88,7 +88,7 @@ Under sampling to create a balanced training set
 ```{r}
 nrow_fraud <- nrow(train[train$Class == 1, ])
 
-undersample_frac <- 0.5
+undersample_frac <- 0.2
 
 # find the desired sample size when applying the undersampling technique.
 undersample_size <- nrow_fraud/undersample_frac
@@ -114,7 +114,7 @@ list_confusion_matrix <- list()
 
 for (methods in model_name){
     # build model on train set
-    set.seed(1)
+    set.seed(1738)
     model <- train(Class ~ ., 
                    data = undersample_df, 
                    method = methods, 
@@ -149,7 +149,8 @@ undersample_copy <- undersample_df
 undersample_copy$Class <- ifelse(undersample_copy$Class == 1, "Yes", "No")
 
 hyper_grid <- expand.grid(
-  k = floor(seq(1, nrow(undersample_copy)/3, length.out = 20))
+  # k = floor(seq(1, nrow(undersample_copy)/3, length.out = 20))
+  k = floor(seq(1, 247, by=2))
 )
 
 knn_grid <- train(
@@ -164,6 +165,8 @@ knn_grid <- train(
 ggplot(knn_grid)
 
 ```
+
+
 
 
 
